@@ -7,7 +7,8 @@ const erreur = document.getElementById("erreur");
 const inputPseudo = document.getElementById("pseudo");
 const inputPassword = document.getElementById("password");
 
-form.addEventListener("submit", function (event) {
+form.addEventListener("submit", function(event)
+{
     event.preventDefault();
     const pseudo = inputPseudo.value.trim();
     const password = inputPassword.value.trim();
