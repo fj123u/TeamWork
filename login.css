@@ -1,0 +1,48 @@
+body 
+{
+    font-family: Arial, sans-serif;
+    max-width: 720px;
+    margin: 30px auto;
+    padding: 0 12px;
+}
+
+h1 
+{
+    margin-bottom: 18px;
+}
+
+form 
+{
+    border: 1px solid #ddd;
+    padding: 14px;
+    border-radius: 8px;
+}
+
+.champ 
+{
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+input,
+select,
+button 
+{
+    font-size: 16px;
+    padding: 8px;
+}
+
+button 
+{
+    cursor: pointer;
+}
+
+#erreur 
+{
+    margin-top: 12px;
+    color: #b00020;
+    font-weight: bold;
+    min-height: 22px;
+}

@@ -4,14 +4,8 @@ Bleu moyen : #1E88E5
 Bleu clair : #42A5F5
 Bleu cyan : #26C6DA
 Bleu très clair (effet glow) : #7FDBFF
-✨ Couleurs des particules (variations légères)
 Bleu pastel : #90CAF9
 Bleu translucide : rgba(66, 165, 245, 0.4)
 Cyan léger : rgba(38, 198, 218, 0.3)
-🌑 Fond / contraste
 Noir bleuté : #0A0F1F
 Gris très sombre : #121826
-💡 Conseil pour ton site
-Utilise le bleu foncé (#0B3C8C) pour les titres
-Le bleu clair / cyan pour les boutons ou hover
-Les particules en rgba pour des effets modernes (background animé par exemple)
