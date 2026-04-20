@@ -1,6 +1,7 @@
 
 const form = document.getElementById("form-login");
 const erreur = document.getElementById("erreur");
+const href = document.getElementById("submit");
 
 const inputPseudo = document.getElementById("pseudo");
 const inputPassword = document.getElementById("password");
@@ -26,5 +27,6 @@ form.addEventListener("submit", function (event) {
         return;
     }
     erreur.textContent = "";
+    window.location.href = "../profile/profile.html";
     form.reset();
 });
