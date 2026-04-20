@@ -1,25 +1,21 @@
-body 
-{
+body {
     font-family: Arial, sans-serif;
     max-width: 720px;
     margin: 30px auto;
     padding: 0 12px;
 }
 
-h1 
-{
+h1 {
     margin-bottom: 18px;
 }
 
-form 
-{
+form {
     border: 1px solid #ddd;
     padding: 14px;
     border-radius: 8px;
 }
 
-.champ 
-{
+.champ {
     margin-bottom: 12px;
     display: flex;
     flex-direction: column;
@@ -28,21 +24,28 @@ form
 
 input,
 select,
-button 
-{
+button {
     font-size: 16px;
     padding: 8px;
 }
 
-button 
-{
+button {
     cursor: pointer;
 }
 
-#erreur 
-{
+#erreur {
     margin-top: 12px;
     color: #b00020;
     font-weight: bold;
     min-height: 22px;
+}
+
+#submit {
+    background-color: white;
+    color: black;
+    text-decoration: none;
+    box-shadow: 3px 3px 5px;
+    font-size: 20px;
+    padding: 5px 5px;
+    border-radius: 3px;
 }
