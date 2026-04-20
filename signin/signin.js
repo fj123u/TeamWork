@@ -1,5 +1,5 @@
 
-const form = document.getElementById("form-login");
+const form = document.getElementById("form-signin");
 const erreur = document.getElementById("erreur");
 
 const inputPseudo = document.getElementById("pseudo");
