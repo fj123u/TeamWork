@@ -1,0 +1,63 @@
+body {
+    background-image: url(Lumières\ bleues\ et\ particules\ lumineuses.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+
+.navBarre {
+    display: block;
+    box-shadow: 3px 3px 5px;
+    border-radius: 10px;
+    margin: 0px 0px;
+    padding: 0px 0px;
+    background-color: white;
+}
+
+.navBarre img {
+    height: 85px;
+}
+
+h1 {
+    margin-bottom: 18px;
+    max-width: 720px;
+    margin: 30px auto;
+    padding: 0 12px;
+}
+
+form {
+    border: 1px solid #ddd;
+    padding: 14px;
+    border-radius: 8px;
+    max-width: 720px;
+    margin: 30px auto;
+    padding: 0 12px;
+}
+
+.champ {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+input,
+select,
+button {
+    font-size: 16px;
+    padding: 8px;
+}
+
+button {
+    cursor: pointer;
+}
+
+#erreur {
+    margin-top: 12px;
+    color: #b00020;
+    font-weight: bold;
+    min-height: 22px;
+    max-width: 720px;
+    margin: 30px auto;
+    padding: 0 12px;
+}

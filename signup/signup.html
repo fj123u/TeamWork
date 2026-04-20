@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TeamWork signup</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+
+<header class="navBarre">
+    <img src="../img/Logo dynamique avec initiales TW.png" alt="logo Site">
+</header>
+
+<body>
+    <h1>Créer un compte</h1>
+    <form id="form-signup">
+        <div class="champ">
+            <label for="nom">Nom</label>
+            <input id="nom" type="text" placeholder="Ex : Dupont">
+        </div>
+        <div class="champ">
+            <label for="prenom">Prenom</label>
+            <input id="prenom" type="text" placeholder="Ex : Jean">
+        </div>
+        <div class="champ">
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="Ex : Dupont@example.com">
+        </div>
+        <div class="champ">
+            <label for="password">Mot de passe</label>
+            <input id="password" type="password" placeholder="............">
+        </div>
+        <div class="champ">
+            <label for="confirmPassword">Confirmation</label>
+            <input id="confirmPassword" type="password" placeholder="............">
+        </div>
+        <button type="submit">Créer le compte</button>
+    </form>
+    <br>
+    <div id="erreur"></div>
+    <script src="signup.js"></script>
+</body>
+
+</html>
