@@ -1,7 +1,6 @@
 
 const form = document.getElementById("form-login");
 const erreur = document.getElementById("erreur");
-const href = document.getElementById("submit");
 
 const inputPseudo = document.getElementById("pseudo");
 const inputPassword = document.getElementById("password");
