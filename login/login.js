@@ -27,6 +27,6 @@ form.addEventListener("submit", function (event) {
         return;
     }
     erreur.textContent = "";
-    window.location.href = "../profile/profile.html";
+    window.location.href = "../homepage/homepage.html";
     form.reset();
 });
