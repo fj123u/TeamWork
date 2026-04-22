@@ -1,3 +1,5 @@
+let users = [];
+let indexModification = -1;
 
 const form = document.getElementById("form-signup");
 const erreur = document.getElementById("erreur");
@@ -7,6 +9,8 @@ const inputPrenom = document.getElementById("prenom");
 const inputEmail = document.getElementById("email");
 const inputPassword = document.getElementById("password");
 const inputConfirmPassword = document.getElementById("confirmPassword");
+
+chargerUsers();
 
 form.addEventListener("submit", function (event) {
     event.preventDefault();
@@ -31,8 +35,7 @@ form.addEventListener("submit", function (event) {
         erreur.textContent = "Le prenom est trop court.";
         return;
     }
-    if (!validateEmail(email))
-    {
+    if (!validateEmail(email)) {
         erreur.textContent = "L'email n'est pas valide."
         return;
     }
@@ -49,6 +52,31 @@ form.addEventListener("submit", function (event) {
         return;
     }
     erreur.textContent = "";
+
+    if (indexModification === -1) {
+        users.push({
+            nom: nom,
+            prenom: prenom,
+            email: email,
+            password: password,
+        });
+    } else {
+        users[indexModification] = {
+            nom: nom,
+            prenom: prenom,
+            email: email,
+            password: password,
+        };
+        indexModification = -1;
+    }
+
+    sauvegarderUsers();
+
+    document.getElementById("nom").value = "";
+    document.getElementById("prenom").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+
     window.location.href = "../homepage/homepage.html";
     form.reset();
 });
@@ -56,4 +84,15 @@ form.addEventListener("submit", function (event) {
 function validateEmail(email) {
     var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email);
-  }
+}
+
+function chargerUsers() {
+    const data = localStorage.getItem("user");
+    if (data !== null) {
+        users = JSON.parse(data);
+    }
+}
+
+function sauvegarderUsers() {
+    localStorage.setItem("user", JSON.stringify(users));
+}
