@@ -27,14 +27,12 @@ form.addEventListener("submit", function (event) {
     }
     for (let i = 0; i < users.length; ++i) {
         if (users[i].email == email) {
-           if (users[i].password == password)
-           {
+            if (users[i].password == password) {
                 a = true;
-           }
+            }
         }
     }
-    if (!a)
-    {
+    if (!a) {
         erreur.textContent = "Au moins une des valeurs saisies est incorrect.";
         return;
     }
