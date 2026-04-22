@@ -42,3 +42,14 @@ body {
     margin: 20px 50px;
     border-radius: 3px;
 }
+
+#btnHome{
+    background-color: white;
+    color: white;
+    border-radius: 50px;
+    border: white;
+}
+
+#btnHome:hover{
+    cursor: pointer;
+}
