@@ -36,8 +36,14 @@ form.addEventListener("submit", function (event) {
         return;
     }
     if (!validateEmail(email)) {
-        erreur.textContent = "L'email n'est pas valide."
+        erreur.textContent = "L'email n'est pas valide.";
         return;
+    }
+    for (let i = 0; i < users.length; ++i) {
+        if (users[i].email == email) {
+            erreur.textContent = "L'email est déjà utilisé.";
+            return;
+        }
     }
     if (password === "") {
         erreur.textContent = "Le mot de passe est obligatoire.";
