@@ -5,4 +5,11 @@ if (index === null || !users) {
     window.location.href = "../signin/signin.html";
 }
 const pp = users[index].avatar;
-document.getElementById("avatar").src = pp;
+if (pp === null)
+{
+    document.getElementById("avatar").src = "../img/avatar.png";
+}
+else
+{
+    document.getElementById("avatar").src = pp;
+}
