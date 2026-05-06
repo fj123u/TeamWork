@@ -6,6 +6,7 @@ const erreur = document.getElementById("erreur");
 
 const inputEmail = document.getElementById("email");
 const inputPassword = document.getElementById("password");
+var userConnect;
 
 chargerUsers();
 
@@ -29,6 +30,7 @@ form.addEventListener("submit", function (event) {
         if (users[i].email == email) {
             if (users[i].password == password) {
                 a = true;
+                localStorage.setItem("userConnect", i);
             }
         }
     }
@@ -37,6 +39,7 @@ form.addEventListener("submit", function (event) {
         return;
     }
     erreur.textContent = "";
+    
     window.location.href = "../homepage/homepage.html";
     form.reset();
 });
