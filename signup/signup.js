@@ -63,8 +63,7 @@ form.addEventListener("submit", function (event) {
 
     const sauvegarder = (avatarBase64 = null) => {
         if (indexModification === -1) {
-            users.push(
-                { nom, prenom, email, password, avatar: avatarBase64 });
+            users.push({ nom, prenom, email, password, avatar: avatarBase64 });
         }
         else {
             users[indexModification] = { nom, prenom, email, password, avatar: avatarBase64 };
@@ -72,6 +71,7 @@ form.addEventListener("submit", function (event) {
         }
         sauvegarderUsers();
         form.reset();
+        alert("Vous pouvez maintenant vous connecter");
         window.location.href = "../signin/signin.html";
     };
 
