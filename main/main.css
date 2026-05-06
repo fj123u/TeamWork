@@ -1,55 +1,87 @@
 body {
-    background-image: url(Lumières\ bleues\ et\ particules\ lumineuses.png);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url(../img/backgroundMainPage.png);
     background-repeat: no-repeat;
     background-size: cover;
-}
-
-.navBarre {
+    background-position: center;
+  }
+  
+  .header {
+    padding: 20px 24px;
+  }
+  
+  .header img {
+    height: 80px;
+    background-color: white;
+    border-radius: 50%;
     display: block;
-    box-shadow: 3px 3px 5px;
-    border-radius: 10px;
-    margin: 0px 0px;
-    padding: 0px 0px;
-    background-color: white;
-}
-
-.navBarre img {
-    height: 85px;
-}
-
-#text {
+  }
+  
+  .main {
+    flex: 1;
     display: flex;
-    justify-content: center;
-    align-self: center;
-    color: white;
-    font-size: 300%;
-    font-weight: bold;
-}
-
-.boutons {
-    display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-}
-
-.boutons a {
-    background-color: white;
-    color: black;
-    text-decoration: none;
-    box-shadow: 3px 3px 5px;
-    font-size: 40px;
-    padding: 5px 5px;
-    margin: 20px 50px;
-    border-radius: 3px;
-}
-
-#btnHome{
-    background-color: white;
+    justify-content: center;
+    padding: 24px 16px;
+    gap: 24px;
+  }
+  
+  .cadre {
+    width: min(500px, 100%);
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 48px 40px;
+    border-radius: 20px;
+  }
+  
+  h1 {
+    color: #0B3C8C;
+    font-size: 2.2rem;
+    font-weight: bold;
+  }
+  
+  a {
+    display: block;
+    width: 70%;
+    text-align: center;
+    background: linear-gradient(135deg, #42A5F5, #0B3C8C);
     color: white;
-    border-radius: 50px;
-    border: white;
-}
-
-#btnHome:hover{
-    cursor: pointer;
-}
+    text-decoration: none;
+    font-size: 1.3rem;
+    padding: 14px;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  a:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    color: white;
+  }
+  
+  .tagline {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  }
+  
+  .footer {
+    background: rgba(0, 0, 0, 0.35);
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 28px;
+    font-size: 0.9rem;
+    backdrop-filter: blur(4px);
+  }
