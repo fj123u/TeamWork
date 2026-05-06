@@ -9,6 +9,7 @@ const inputPrenom = document.getElementById("prenom");
 const inputEmail = document.getElementById("email");
 const inputPassword = document.getElementById("password");
 const inputConfirmPassword = document.getElementById("confirmPassword");
+const inputAvatar = document.getElementById("avatar");
 
 chargerUsers();
 
@@ -19,6 +20,7 @@ form.addEventListener("submit", function (event) {
     const email = inputEmail.value.trim();
     const password = inputPassword.value.trim();
     const confirmPassword = inputConfirmPassword.value.trim();
+    const fichier = inputAvatar.files[0];
     if (nom === "") {
         erreur.textContent = "Le nom est obligatoire.";
         return;
@@ -59,32 +61,28 @@ form.addEventListener("submit", function (event) {
     }
     erreur.textContent = "";
 
-    if (indexModification === -1) {
-        users.push({
-            nom: nom,
-            prenom: prenom,
-            email: email,
-            password: password,
-        });
-    } else {
-        users[indexModification] = {
-            nom: nom,
-            prenom: prenom,
-            email: email,
-            password: password,
-        };
-        indexModification = -1;
+    const sauvegarder = (avatarBase64 = null) => {
+        if (indexModification === -1) {
+            users.push(
+                { nom, prenom, email, password, avatar: avatarBase64 });
+        }
+        else {
+            users[indexModification] = { nom, prenom, email, password, avatar: avatarBase64 };
+            indexModification = -1;
+        }
+        sauvegarderUsers();
+        form.reset();
+        window.location.href = "../homepage/homepage.html";
+    };
+
+    if (fichier) {
+        const reader = new FileReader();
+        reader.onload = (e) => sauvegarder(e.target.result);
+        reader.readAsDataURL(fichier);
     }
-
-    sauvegarderUsers();
-
-    document.getElementById("nom").value = "";
-    document.getElementById("prenom").value = "";
-    document.getElementById("email").value = "";
-    document.getElementById("password").value = "";
-
-    window.location.href = "../homepage/homepage.html";
-    form.reset();
+    else {
+        sauvegarder();
+    }
 });
 
 function validateEmail(email) {
