@@ -72,7 +72,7 @@ form.addEventListener("submit", function (event) {
         }
         sauvegarderUsers();
         form.reset();
-        window.location.href = "../homepage/homepage.html";
+        window.location.href = "../signin/signin.html";
     };
 
     if (fichier) {
