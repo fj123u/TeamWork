@@ -18,8 +18,6 @@ else {
 
 chargerPosts();
 
-
-
 function chargerPosts() {
     const data = localStorage.getItem("post");
     if (data !== null) {
@@ -87,8 +85,15 @@ add.addEventListener("click", () => {
         const nom = users[index]["nom"];
         const prenom = users[index]["prenom"];
         const nbLike = 0;
+        const data = localStorage.getItem("post");
+        let postId = 0;
+        if (data != null)
+        {
+            const postsData = JSON.parse(data);
+            postId = postsData[postsData.length - 1]["id"] + 1;
+        }
         const commmentaires = {};
-        posts.push({ nom: nom, prenom: prenom, titre: title, msg: msg, likes: nbLike, commentaires: commmentaires });
+        posts.push({ nom: nom, prenom: prenom, titre: title, msg: msg, likes: nbLike, commentaires: commmentaires, id: postId });
         sauvegarderPost();
         location.reload();
     });
