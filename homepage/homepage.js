@@ -34,17 +34,119 @@ function chargerPosts() {
         const message = document.createElement("p");
         message.textContent = posts[i]["msg"];
         const boutonLike = document.createElement("button");
-        boutonLike.textContent = "🤍";
+        if (users[index].likedPosts.length > 0)
+        {
+            for (let p in users[index].likedPosts)
+            {
+                if (p == i)
+                {
+                    boutonLike.textContent = "❤️";
+                }
+                else
+                {
+                    boutonLike.textContent = "🤍";
+                }
+            }   
+        }
+        else
+        {
+            boutonLike.textContent = "🤍";
+        }    
+        boutonLike.addEventListener("click", () => {
+            if (users[index].likedPosts.length > 0)
+            {
+                for (let p in users[index].likedPosts)
+                    {
+                        if (p == i)
+                        {
+                            users[index].likedPosts = users[index].likedPosts.filter(post => post !== i);
+                            posts[i].likes -= 1;
+                            sauvegarderPost();
+                            sauvegarderUsers();
+                            likes.textContent = " " + posts[i].likes;
+                            boutonLike.textContent = "🤍"; 
+                        }
+                        else
+                        {
+                            users[index].likedPosts.push(i);
+                            posts[i].likes += 1;
+                            sauvegarderPost();
+                            sauvegarderUsers();
+                            likes.textContent = " " + posts[i].likes;
+                            boutonLike.textContent = "❤️";
+                            break;
+                        }
+                    }
+            }
+            else
+            {
+                users[index].likedPosts.push(i);
+                posts[i].likes += 1;
+                sauvegarderPost();
+                sauvegarderUsers();
+                likes.textContent = " " + posts[i].likes;
+                boutonLike.textContent = "❤️";
+            } 
+        });
         const likes = document.createElement("span");
         likes.textContent = " " + posts[i]["likes"];
-        const boutonCom = document.createElement("button");
-        boutonCom.textContent = "🗨️";
-        boutonCom.classList.add("com");
+        const boutonComAdd = document.createElement("button");
+        boutonComAdd.textContent = "Ajouter un commentaire  (" + posts[i]["coms"] + ")";
+        boutonComAdd.classList.add("com");
+        boutonComAdd.addEventListener("click", () => {
+            const input = document.createElement("input");
+            input.placeholder = "Votre commentaire";
+            const envoyer = document.createElement("button");
+            envoyer.textContent = "Envoyer";
+            div.appendChild(input);
+            div.appendChild(envoyer);
+            envoyer.addEventListener("click", () => {
+                const texte = input.value.trim();
+                if (texte === "") {
+                    return;
+                }
+                posts[i].commentaires.push({
+                    auteur: users[index].prenom + " " + users[index].nom,
+                    message: texte
+                });
+                posts[i].coms += 1;
+                sauvegarderPost();
+                location.reload();
+            });
+        })
+        const boutonComView = document.createElement("button");
+        boutonComView.textContent = "Voir les commentaires";
+        boutonComView.classList.add("com");
+        let view = false;
+        const zone = document.createElement("div");
+        boutonComView.addEventListener("click", () => {
+            if (!view)
+            {
+                zone.innerHTML = "";
+                for (const commentaire of posts[i].commentaires) {
+                    const p = document.createElement("p");
+                    p.textContent = commentaire.auteur + " : " + commentaire.message;
+                    zone.appendChild(p);
+                }
+                div.appendChild(zone);
+                view = true;
+            }
+            else
+            {
+                zone.innerHTML = "";
+                view = false;
+                boutonComView.textContent = "Voir les commentaires";
+            }
+            
+        })
+        const coms = document.createElement("span");
         const actions = document.createElement("div");
         actions.classList.add("actions");
         actions.appendChild(boutonLike);
         actions.appendChild(likes);
-        actions.appendChild(boutonCom);
+        actions.appendChild(boutonComAdd);
+        actions.appendChild(boutonComView);
+        actions.appendChild(coms);
         div.appendChild(nom);
         div.appendChild(titre);
         div.appendChild(message);
@@ -87,17 +189,20 @@ add.addEventListener("click", () => {
         const nom = users[index]["nom"];
         const prenom = users[index]["prenom"];
         const nbLike = 0;
+        const nbComs = 0;
         const data = localStorage.getItem("post");
         let postId = 0;
-        if (data != null)
-        {
+        if (data != null) {
             const postsData = JSON.parse(data);
             postId = postsData[postsData.length - 1]["id"] + 1;
         }
-        const commmentaires = {};
-        posts.push({ nom: nom, prenom: prenom, titre: title, msg: msg, likes: nbLike, commentaires: commmentaires, id: postId });
+        const commmentaires = [];
+        posts.push({ nom: nom, prenom: prenom, titre: title, msg: msg, likes: nbLike, coms: nbComs, commentaires: commmentaires, id: postId });
         sauvegarderPost();
         location.reload();
     });
 });
 
+function sauvegarderUsers() {
+    localStorage.setItem("user", JSON.stringify(users));
+}
