@@ -53,6 +53,8 @@ function chargerPosts() {
     }
 }
 
+
+
 function sauvegarderPost() {
     localStorage.setItem("post", JSON.stringify(posts));
 }
