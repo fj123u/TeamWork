@@ -22,6 +22,10 @@ form.addEventListener("submit", function (event) {
     const confirmPassword = inputConfirmPassword.value.trim();
     const fichier = inputAvatar.files[0];
     const likedPosts = [];
+    const followedUsers = [];
+    const nbLikes = 0;
+    const nbFollows = 0;
+    const nbPosts = 0;
     if (nom === "") {
         erreur.textContent = "Le nom est obligatoire.";
         return;
@@ -64,10 +68,10 @@ form.addEventListener("submit", function (event) {
 
     const sauvegarder = (avatarBase64 = null) => {
         if (indexModification === -1) {
-            users.push({ nom, prenom, email, password, avatar: avatarBase64, likedPosts });
+            users.push({ nom, prenom, email, password, avatar: avatarBase64, likedPosts, followedUsers, nbLikes, nbFollows, nbPosts });
         }
         else {
-            users[indexModification] = { nom, prenom, email, password, avatar: avatarBase64, likedPosts };
+            users[indexModification] = { nom, prenom, email, password, avatar: avatarBase64, likedPosts, followedUsers, nbLikes, nbFollows, nbPosts };
             indexModification = -1;
         }
         sauvegarderUsers();

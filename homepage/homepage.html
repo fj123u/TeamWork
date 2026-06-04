@@ -9,7 +9,6 @@
 </head>
 
 <body>
-
     <a href="../profile/profile.html">
         <img id="avatar" src="" alt="Photo de profil">
     </a>
@@ -18,6 +17,15 @@
         <button>Voir mon profil</button>
     </a>
     <button id="add">Publier</button>
+    <br>
+    <br>
+    <div>
+        <label for="nom">Rechercher un utilisateur</label>
+        <input id="recherche" list="suggestion" name="Recherche" placeholder="Ex : Dupont">
+        <datalist id="suggestion"></datalist>
+    </div>
+    <div id="profilRecherche"></div>
+    <br>
     <form id="form-post"></form>
     <div id="posts"></div>
     <script src="homepage.js"></script>
