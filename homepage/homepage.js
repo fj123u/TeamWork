@@ -4,6 +4,9 @@ const index = localStorage.getItem("userConnect");
 const form = document.getElementById("form-post");
 const add = document.getElementById("add");
 const recherche = document.getElementById("recherche");
+let likes = 0;
+const follows = users[index].nbFollows;
+const postss = users[index].nbPosts;
 let posts = [];
 
 if (index === null || !users) {
@@ -18,6 +21,7 @@ else {
 }
 
 chargerPosts();
+showStats()
 
 function chargerPosts() {
     const data = localStorage.getItem("post");
@@ -50,30 +54,30 @@ function chargerPosts() {
         }
         boutonLike.addEventListener("click", () => {
             if (users[index].likedPosts.length > 0) {
-                for (let p in users[index].likedPosts) {
-                    if (p == i) {
-                        users[index].likedPosts = users[index].likedPosts.filter(post => post !== i);
-                        posts[i].likes -= 1;
-                        sauvegarderPost();
-                        sauvegarderUsers();
-                        likes.textContent = " " + posts[i].likes;
-                        boutonLike.textContent = "🤍";
-                    }
-                    else {
-                        users[index].likedPosts.push(i);
-                        posts[i].likes += 1;
-                        sauvegarderPost();
-                        sauvegarderUsers();
-                        likes.textContent = " " + posts[i].likes;
-                        boutonLike.textContent = "❤️";
-                        break;
-                    }
+                if (users[index].likedPosts.includes(i)) {
+                    users[index].likedPosts = users[index].likedPosts.filter(post => post !== i);
+                    posts[i].likes -= 1;
+                    sauvegarderPost();
+                    showStats();
+                    sauvegarderUsers();
+                    likes.textContent = " " + posts[i].likes;
+                    boutonLike.textContent = "🤍";
+                }
+                else {
+                    users[index].likedPosts.push(i);
+                    posts[i].likes += 1;
+                    sauvegarderPost();
+                    showStats();
+                    sauvegarderUsers();
+                    likes.textContent = " " + posts[i].likes;
+                    boutonLike.textContent = "❤️";
                 }
             }
             else {
                 users[index].likedPosts.push(i);
                 posts[i].likes += 1;
                 sauvegarderPost();
+                showStats();
                 sauvegarderUsers();
                 likes.textContent = " " + posts[i].likes;
                 boutonLike.textContent = "❤️";
@@ -101,6 +105,7 @@ function chargerPosts() {
                     message: texte
                 });
                 posts[i].coms += 1;
+                showStats();
                 sauvegarderPost();
                 location.reload();
             });
@@ -141,6 +146,7 @@ function chargerPosts() {
         div.appendChild(message);
         div.appendChild(actions);
         divPost.appendChild(div);
+        showStats();
     }
 }
 
@@ -184,8 +190,9 @@ add.addEventListener("click", () => {
             postId = postsData[postsData.length - 1]["id"] + 1;
         }
         const commmentaires = [];
-        posts.push({ nom: nom, prenom: prenom, titre: title, msg: msg, likes: nbLike, coms: nbComs, commentaires: commmentaires, id: postId });
+        posts.push({ nom: nom, prenom: prenom, titre: title, msg: msg, likes: nbLike, coms: nbComs, commentaires: commmentaires, id: postId, userId: index });
         sauvegarderPost();
+        showStats();
         location.reload();
     });
 });
@@ -241,4 +248,41 @@ function afficherProfil(utilisateur) {
     });
     zone.appendChild(h2);
     zone.appendChild(boutonFollow);
+    showStats();
+}
+
+function showStats() {
+
+    const zone = document.getElementById("stats");
+    zone.innerHTML = "";
+    let totalLikes = 0;
+    let totalFollows = 0;
+    let totalPosts = 0;
+    const userId = index;
+    for (const post of posts) {
+        if (post.userId == userId) {
+            totalPosts += 1;
+            totalLikes += post.likes;
+        }
+    }
+    for (const user of users)
+    {
+        if (user.followedUsers.includes(Number(index)))
+        {
+            totalFollows += 1;
+        }
+    }
+    users[userId].nbLikes = totalLikes;
+    users[userId].nbPosts = totalPosts;
+    users[userId].nbFollows = totalFollows;
+    const p1 = document.createElement("p");
+    p1.textContent = "Posts publiés : " + totalPosts;
+    const p2 = document.createElement("p");
+    p2.textContent = "Likes reçus : " + totalLikes;
+    const p3 = document.createElement("p");
+    p3.textContent = "Followers : " + totalFollows;
+    zone.appendChild(p1);
+    zone.appendChild(p2);
+    zone.appendChild(p3);
+    sauvegarderUsers();
 }
