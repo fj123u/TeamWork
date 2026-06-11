@@ -7,8 +7,8 @@ const recherche = document.getElementById("recherche");
 let likes = 0;
 const follows = users[index].nbFollows;
 const postss = users[index].nbPosts;
+const postsData = JSON.parse(localStorage.getItem("post"));
 let posts = [];
-
 if (index === null || !users) {
     window.location.href = "../signin/signin.html";
 }
@@ -109,7 +109,8 @@ function chargerPosts() {
                 sauvegarderPost();
                 location.reload();
             });
-        })
+        });
+        const actions = document.createElement("div");
         const boutonComView = document.createElement("button");
         boutonComView.textContent = "Voir les commentaires";
         boutonComView.classList.add("com");
@@ -131,10 +132,16 @@ function chargerPosts() {
                 view = false;
                 boutonComView.textContent = "Voir les commentaires";
             }
-
+        })
+        const boutonClose = document.createElement("button");
+        boutonClose.textContent = "X";
+        if (postsData[i]["userId"] == index) {
+            actions.appendChild(boutonClose);
+        }
+        boutonClose.addEventListener("click", () => {
+            removePost(posts[i].id);
         })
         const coms = document.createElement("span");
-        const actions = document.createElement("div");
         actions.classList.add("actions");
         actions.appendChild(boutonLike);
         actions.appendChild(likes);
@@ -152,6 +159,13 @@ function chargerPosts() {
 
 function sauvegarderPost() {
     localStorage.setItem("post", JSON.stringify(posts));
+}
+
+function removePost(id) {
+    posts.splice(id, 1);
+    sauvegarderPost();
+    showStats();
+    location.reload();
 }
 
 add.addEventListener("click", () => {
@@ -186,8 +200,14 @@ add.addEventListener("click", () => {
         const data = localStorage.getItem("post");
         let postId = 0;
         if (data != null) {
-            const postsData = JSON.parse(data);
+            try {
             postId = postsData[postsData.length - 1]["id"] + 1;
+            } catch {
+            }
+        }
+        if (postId < 0)
+        {
+            postId = 0;
         }
         const commmentaires = [];
         posts.push({ nom: nom, prenom: prenom, titre: title, msg: msg, likes: nbLike, coms: nbComs, commentaires: commmentaires, id: postId, userId: index });
@@ -265,10 +285,8 @@ function showStats() {
             totalLikes += post.likes;
         }
     }
-    for (const user of users)
-    {
-        if (user.followedUsers.includes(Number(index)))
-        {
+    for (const user of users) {
+        if (user.followedUsers.includes(Number(index))) {
             totalFollows += 1;
         }
     }
