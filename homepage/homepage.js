@@ -19,6 +19,7 @@ if (pp === null) {
 else {
     document.getElementById("avatar").src = pp;
 }
+document.getElementById("userName").textContent = users[index].prenom + " " + users[index].nom;
 
 chargerPosts();
 showStats()
@@ -28,6 +29,14 @@ function chargerPosts() {
     if (data !== null) {
         posts = JSON.parse(data);
     }
+    const followedUsers = users[index].followedUsers || [];
+    posts.sort((a, b) => {
+        const aFollowed = followedUsers.includes(Number(a.userId));
+        const bFollowed = followedUsers.includes(Number(b.userId));
+        if (aFollowed && !bFollowed) return -1;
+        if (!aFollowed && bFollowed) return 1;
+        return 0;
+    });
     const divPost = document.getElementById("posts");
     for (let i = 0; i < posts.length; ++i) {
         const div = document.createElement("div");
@@ -349,11 +358,13 @@ function showStats() {
     let totalLikes = 0;
     let totalFollows = 0;
     let totalPosts = 0;
+    let totalComs = 0;
     const userId = index;
     for (const post of posts) {
         if (post.userId == userId) {
             totalPosts += 1;
             totalLikes += post.likes;
+            totalComs += post.coms || 0;
         }
     }
     for (const user of users) {
@@ -369,10 +380,13 @@ function showStats() {
     const p2 = document.createElement("p");
     p2.textContent = "Likes reçus : " + totalLikes;
     const p3 = document.createElement("p");
-    p3.textContent = "Followers : " + totalFollows;
+    p3.textContent = "Commentaires : " + totalComs;
+    const p4 = document.createElement("p");
+    p4.textContent = "Followers : " + totalFollows;
     zone.appendChild(p1);
     zone.appendChild(p2);
     zone.appendChild(p3);
+    zone.appendChild(p4);
     sauvegarderUsers();
 }
 
@@ -382,17 +396,42 @@ disconnect.addEventListener("click", () => {
 });
 
 const recherchePost = document.getElementById("recherchePost");
+const filtreAuteur = document.getElementById("filtreAuteur");
+const compteurResultats = document.getElementById("compteurResultats");
+const suggestionAuteur = document.getElementById("suggestionAuteur");
 
-recherchePost.addEventListener("input", () => {
+for (const user of users) {
+    const option = document.createElement("option");
+    option.value = user.prenom + " " + user.nom;
+    suggestionAuteur.appendChild(option);
+}
+
+function filtrerPosts() {
     const texte = recherchePost.value.toLowerCase();
+    const auteur = filtreAuteur.value.toLowerCase();
     const divPost = document.getElementById("posts");
     const allPosts = divPost.querySelectorAll(".post");
+    let count = 0;
     for (let i = 0; i < allPosts.length; ++i) {
         const contenu = allPosts[i].textContent.toLowerCase();
-        if (contenu.includes(texte)) {
+        const nomAuteur = allPosts[i].querySelector("h3").textContent.toLowerCase();
+        const matchTexte = texte === "" || contenu.includes(texte);
+        const matchAuteur = auteur === "" || nomAuteur.includes(auteur);
+        if (matchTexte && matchAuteur) {
             allPosts[i].style.display = "";
+            count++;
         } else {
             allPosts[i].style.display = "none";
         }
     }
-});
+    if (texte === "" && auteur === "") {
+        compteurResultats.textContent = "";
+    } else if (count === 0) {
+        compteurResultats.textContent = "Aucun résultat trouvé";
+    } else {
+        compteurResultats.textContent = count + " publication(s) trouvée(s)";
+    }
+}
+
+recherchePost.addEventListener("input", filtrerPosts);
+filtreAuteur.addEventListener("input", filtrerPosts);

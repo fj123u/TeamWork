@@ -12,6 +12,7 @@
     <header class="navBarre">
         <a href="../profile/profile.html" class="profil-link">
             <img id="avatar" src="" alt="Photo de profil">
+            <span id="userName"></span>
         </a>
         <h2 class="logo-text">TeamWork</h2>
         <div class="nav-actions">
@@ -38,6 +39,10 @@
             <div class="recherche-box">
                 <label for="recherchePost">Rechercher dans les posts</label>
                 <input id="recherchePost" type="text" placeholder="Ex : titre, mot-clé...">
+                <label for="filtreAuteur">Filtre auteur</label>
+                <input id="filtreAuteur" list="suggestionAuteur" type="text" placeholder="Ex : Dupont">
+                <datalist id="suggestionAuteur"></datalist>
+                <p id="compteurResultats"></p>
             </div>
             <form id="form-post"></form>
             <div id="posts"></div>
