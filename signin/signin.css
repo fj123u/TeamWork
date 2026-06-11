@@ -1,63 +1,113 @@
 body {
-    background-image: url(Lumières\ bleues\ et\ particules\ lumineuses.png);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background-image: url("../img/Lumières bleues et particules lumineuses.png");
     background-repeat: no-repeat;
     background-size: cover;
-    font-family: Arial, sans-serif;
+    background-position: center;
 }
 
 .navBarre {
-    display: block;
-    box-shadow: 3px 3px 5px;
-    border-radius: 10px;
-    margin: 0px 0px;
-    padding: 0px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
     background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
 .navBarre img {
-    height: 85px;
+    height: 60px;
 }
 
-h1 {
-    margin-bottom: 18px;
-    max-width: 720px;
-    margin: 30px auto;
-    padding: 0 12px;
-}
-
-form {
-    border: 1px solid #ddd;
-    padding: 14px;
-    border-radius: 8px;
-    max-width: 720px;
-    margin: 30px auto;
-    padding: 0 12px;
-}
-
-.champ {
-    margin-bottom: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-input,
-select,
-button {
-    font-size: 16px;
-    padding: 8px;
-}
-
-button {
+.btn-menu {
+    background: none;
+    border: 1px solid #0B3C8C;
+    color: #0B3C8C;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 14px;
     cursor: pointer;
 }
 
+.btn-menu:hover {
+    background-color: #0B3C8C;
+    color: white;
+}
+
+.container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 16px;
+}
+
+h1 {
+    color: #0B3C8C;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+form {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ddd;
+    padding: 30px 24px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 420px;
+}
+
+.champ {
+    margin-bottom: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+}
+
+input {
+    font-size: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+input:focus {
+    outline: none;
+    border-color: #42A5F5;
+}
+
+.btn-submit {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    font-size: 16px;
+    background: linear-gradient(135deg, #42A5F5, #0B3C8C);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    opacity: 0.9;
+}
+
 #erreur {
-    margin-top: 12px;
+    margin-top: 14px;
     color: #b00020;
     font-weight: bold;
     min-height: 22px;
-    max-width: 720px;
-    margin: 30px auto;
-    padding: 0 12px;
+    text-align: center;
+    font-size: 14px;
 }

@@ -1,0 +1,133 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+}
+
+.navBarre {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navBarre a {
+    text-decoration: none;
+}
+
+.logo-text {
+    color: #0B3C8C;
+    font-size: 1.4rem;
+    margin: 0;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: 1px solid #0B3C8C;
+    background: none;
+    color: #0B3C8C;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0B3C8C;
+    color: white;
+}
+
+.btn-danger {
+    border-color: #b00020;
+    color: #b00020;
+}
+
+.btn-danger:hover {
+    background-color: #b00020;
+    color: white;
+}
+
+.container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+.profil-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+}
+
+.profil-card #avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #42A5F5;
+    margin-bottom: 16px;
+}
+
+.profil-card h1 {
+    margin: 4px 0;
+    color: #0B3C8C;
+    font-size: 1.4rem;
+}
+
+.profil-card #email {
+    color: #555;
+    font-size: 14px;
+    margin: 8px 0 20px 0;
+}
+
+.profil-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#form {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+    margin-top: 20px;
+}
+
+#form:empty {
+    display: none;
+}
+
+#form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+#form input:focus {
+    outline: none;
+    border-color: #42A5F5;
+}
+
+#form button {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #42A5F5, #0B3C8C);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#form button:hover {
+    opacity: 0.9;
+}

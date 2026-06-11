@@ -4,6 +4,7 @@ const index = localStorage.getItem("userConnect");
 const form = document.getElementById("form-post");
 const add = document.getElementById("add");
 const recherche = document.getElementById("recherche");
+const disconnect = document.getElementById("disconnect");
 let likes = 0;
 const follows = users[index].nbFollows;
 const postss = users[index].nbPosts;
@@ -32,8 +33,20 @@ function chargerPosts() {
     for (let i = 0; i < posts.length; ++i) {
         const div = document.createElement("div");
         div.classList.add("post");
+        const postHeader = document.createElement("div");
+        postHeader.classList.add("post-header");
+        const avatarPost = document.createElement("img");
+        avatarPost.classList.add("post-avatar");
+        const auteur = users.find(u => u.prenom + " " + u.nom === posts[i]["prenom"] + " " + posts[i]["nom"]);
+        if (auteur && auteur.avatar) {
+            avatarPost.src = auteur.avatar;
+        } else {
+            avatarPost.src = "../img/avatar.png";
+        }
         const nom = document.createElement("h3");
         nom.textContent = posts[i]["prenom"] + " " + posts[i]["nom"];
+        postHeader.appendChild(avatarPost);
+        postHeader.appendChild(nom);
         const titre = document.createElement("h2");
         titre.textContent = posts[i]["titre"];
         const message = document.createElement("p");
@@ -120,9 +133,21 @@ function chargerPosts() {
             if (!view) {
                 zone.innerHTML = "";
                 for (const commentaire of posts[i].commentaires) {
+                    const comDiv = document.createElement("div");
+                    comDiv.classList.add("commentaire");
+                    const comAvatar = document.createElement("img");
+                    comAvatar.classList.add("com-avatar");
+                    const comAuteur = users.find(u => u.prenom + " " + u.nom === commentaire.auteur);
+                    if (comAuteur && comAuteur.avatar) {
+                        comAvatar.src = comAuteur.avatar;
+                    } else {
+                        comAvatar.src = "../img/avatar.png";
+                    }
                     const p = document.createElement("p");
                     p.textContent = commentaire.auteur + " : " + commentaire.message;
-                    zone.appendChild(p);
+                    comDiv.appendChild(comAvatar);
+                    comDiv.appendChild(p);
+                    zone.appendChild(comDiv);
                 }
                 div.appendChild(zone);
                 view = true;
@@ -148,7 +173,7 @@ function chargerPosts() {
         actions.appendChild(boutonComAdd);
         actions.appendChild(boutonComView);
         actions.appendChild(coms);
-        div.appendChild(nom);
+        div.appendChild(postHeader);
         div.appendChild(titre);
         div.appendChild(message);
         div.appendChild(actions);
@@ -242,8 +267,19 @@ function afficherProfil(utilisateur) {
 
     const zone = document.getElementById("profilRecherche");
     zone.innerHTML = "";
+    const rechercheHeader = document.createElement("div");
+    rechercheHeader.classList.add("recherche-header");
+    const rechercheAvatar = document.createElement("img");
+    rechercheAvatar.classList.add("recherche-avatar");
+    if (utilisateur.avatar) {
+        rechercheAvatar.src = utilisateur.avatar;
+    } else {
+        rechercheAvatar.src = "../img/avatar.png";
+    }
     const h2 = document.createElement("h2");
     h2.textContent = utilisateur.prenom + " " + utilisateur.nom;
+    rechercheHeader.appendChild(rechercheAvatar);
+    rechercheHeader.appendChild(h2);
     const boutonFollow = document.createElement("button");
     const userId = users.indexOf(utilisateur);
     if (users[index].followedUsers.includes(userId)) {
@@ -266,7 +302,7 @@ function afficherProfil(utilisateur) {
         }
         sauvegarderUsers();
     });
-    zone.appendChild(h2);
+    zone.appendChild(rechercheHeader);
     zone.appendChild(boutonFollow);
     showStats();
 }
@@ -304,3 +340,8 @@ function showStats() {
     zone.appendChild(p3);
     sauvegarderUsers();
 }
+
+disconnect.addEventListener("click", () => {
+    localStorage.removeItem("userConnect");
+    window.location.href = "../signin/signin.html";
+});

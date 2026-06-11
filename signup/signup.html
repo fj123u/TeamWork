@@ -8,45 +8,45 @@
     <link rel="stylesheet" href="signup.css">
 </head>
 
-<header class="navBarre">
-    <img src="../img/Logo dynamique avec initiales TW.png" alt="logo Site">
-</header>
-
 <body>
-    <h1>Créer un compte</h1>
-    <a href="../main/main.html">
-        <button>Menu</button>
-    </a>
-    <form id="form-signup">
-        <div class="champ">
-            <label for="nom">Nom</label>
-            <input id="nom" type="text" placeholder="Ex : Dupont">
-        </div>
-        <div class="champ">
-            <label for="prenom">Prenom</label>
-            <input id="prenom" type="text" placeholder="Ex : Jean">
-        </div>
-        <div class="champ">
-            <label for="email">Email</label>
-            <input id="email" type="email" placeholder="Ex : Dupont@example.com">
-        </div>
-        <div class="champ">
-            <label for="password">Mot de passe</label>
-            <input id="password" type="password" placeholder="............">
-        </div>
-        <div class="champ">
-            <label for="confirmPassword">Confirmation</label>
-            <input id="confirmPassword" type="password" placeholder="............">
-        </div>
-        <div>
-            <label for="avatar">Photo de profil</label>
-            <br>
-            <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
-        </div>
-        <button type="submit">Créer le compte</button>
-    </form>
-    <br>
-    <div id="erreur"></div>
+    <header class="navBarre">
+        <img src="../img/Logo dynamique avec initiales TW.png" alt="logo Site">
+        <a href="../main/main.html">
+            <button class="btn-menu">Menu</button>
+        </a>
+    </header>
+
+    <div class="container">
+        <h1>Créer un compte</h1>
+        <form id="form-signup">
+            <div class="champ">
+                <label for="nom">Nom</label>
+                <input id="nom" type="text" placeholder="Ex : Dupont">
+            </div>
+            <div class="champ">
+                <label for="prenom">Prenom</label>
+                <input id="prenom" type="text" placeholder="Ex : Jean">
+            </div>
+            <div class="champ">
+                <label for="email">Email</label>
+                <input id="email" type="email" placeholder="Ex : Dupont@example.com">
+            </div>
+            <div class="champ">
+                <label for="password">Mot de passe</label>
+                <input id="password" type="password" placeholder="............">
+            </div>
+            <div class="champ">
+                <label for="confirmPassword">Confirmation</label>
+                <input id="confirmPassword" type="password" placeholder="............">
+            </div>
+            <div class="champ">
+                <label for="avatar">Photo de profil</label>
+                <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" />
+            </div>
+            <button type="submit" class="btn-submit">Créer le compte</button>
+        </form>
+        <div id="erreur"></div>
+    </div>
     <script src="signup.js"></script>
 </body>
 

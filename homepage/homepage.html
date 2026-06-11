@@ -9,26 +9,36 @@
 </head>
 
 <body>
-    <a href="../profile/profile.html">
-        <img id="avatar" src="" alt="Photo de profil">
-    </a>
-    <br>
-    <a href="../profile/profile.html">
-        <button>Voir mon profil</button>
-    </a>
-    <button id="add">Publier</button>
-    <br>
-    <br>
-    <div>
-        <label for="nom">Rechercher un utilisateur</label>
-        <input id="recherche" list="suggestion" name="Recherche" placeholder="Ex : Dupont">
-        <datalist id="suggestion"></datalist>
+    <header class="navBarre">
+        <a href="../profile/profile.html" class="profil-link">
+            <img id="avatar" src="" alt="Photo de profil">
+        </a>
+        <h2 class="logo-text">TeamWork</h2>
+        <div class="nav-actions">
+            <a href="../profile/profile.html">
+                <button class="btn">Voir mon profil</button>
+            </a>
+            <button id="add" class="btn btn-primary">Publier</button>
+            <button id="disconnect" class="btn btn-danger">Se deconnecter</button>
+        </div>
+    </header>
+
+    <div class="content">
+        <aside class="sidebar">
+            <div class="recherche-box">
+                <label for="recherche">Rechercher un utilisateur</label>
+                <input id="recherche" list="suggestion" name="Recherche" placeholder="Ex : Dupont">
+                <datalist id="suggestion"></datalist>
+            </div>
+            <div id="profilRecherche"></div>
+            <div id="stats"></div>
+        </aside>
+
+        <main class="feed">
+            <form id="form-post"></form>
+            <div id="posts"></div>
+        </main>
     </div>
-    <div id="profilRecherche"></div>
-    <br>
-    <form id="form-post"></form>
-    <div id="stats"></div>
-    <div id="posts"></div>
     <script src="homepage.js"></script>
 </body>
 
