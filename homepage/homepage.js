@@ -44,8 +44,12 @@ function chargerPosts() {
         }
         const nom = document.createElement("h3");
         nom.textContent = posts[i]["prenom"] + " " + posts[i]["nom"];
+        const dateSpan = document.createElement("span");
+        dateSpan.classList.add("post-date");
+        dateSpan.textContent = posts[i]["date"] || "";
         postHeader.appendChild(avatarPost);
         postHeader.appendChild(nom);
+        postHeader.appendChild(dateSpan);
         const titre = document.createElement("h2");
         titre.textContent = posts[i]["titre"];
         const message = document.createElement("p");
@@ -219,7 +223,9 @@ add.addEventListener("click", () => {
         }
         const commmentaires = [];
         const likedBy = [];
-        posts.push({ nom: nom, prenom: prenom, titre: title, msg: msg, likes: nbLike, likedBy: likedBy, coms: nbComs, commentaires: commmentaires, id: postId, userId: index });
+        const now = new Date();
+        const date = now.toLocaleDateString("fr-FR") + " — " + now.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
+        posts.push({ nom: nom, prenom: prenom, titre: title, msg: msg, likes: nbLike, likedBy: likedBy, coms: nbComs, commentaires: commmentaires, id: postId, userId: index, date: date });
         sauvegarderPost();
         showStats();
         location.reload();

@@ -270,6 +270,12 @@ body {
     object-fit: cover;
 }
 
+.post-date {
+    margin-left: auto;
+    font-size: 12px;
+    color: #888;
+}
+
 .commentaire {
     display: flex;
     align-items: center;
