@@ -54,6 +54,11 @@ function chargerPosts() {
         titre.textContent = posts[i]["titre"];
         const message = document.createElement("p");
         message.textContent = posts[i]["msg"];
+        const postImage = document.createElement("img");
+        if (posts[i]["image"]) {
+            postImage.src = posts[i]["image"];
+            postImage.classList.add("post-image");
+        }
         const boutonLike = document.createElement("button");
         if (!posts[i].likedBy) {
             posts[i].likedBy = [];
@@ -163,6 +168,9 @@ function chargerPosts() {
         div.appendChild(postHeader);
         div.appendChild(titre);
         div.appendChild(message);
+        if (posts[i]["image"]) {
+            div.appendChild(postImage);
+        }
         div.appendChild(actions);
         divPost.appendChild(div);
         showStats();
@@ -186,19 +194,44 @@ add.addEventListener("click", () => {
     const labelTitle = document.createElement("label");
     const inputTitle = document.createElement("input");
     const labelMsg = document.createElement("label");
-    const inputMsg = document.createElement("input");
+    const inputMsg = document.createElement("textarea");
+    const labelImage = document.createElement("label");
+    const inputImage = document.createElement("input");
+    const apercu = document.createElement("img");
     const addPost = document.createElement("button");
 
     labelTitle.textContent = "Titre : ";
     labelMsg.textContent = "Message : ";
-    addPost.textContent = "Ajouter un post";
+    inputMsg.placeholder = "Écrire un message...";
+    inputMsg.rows = 3;
+    labelImage.textContent = "Ajouter une image : ";
+    inputImage.type = "file";
+    inputImage.accept = "image/png, image/jpeg";
+    apercu.classList.add("apercu-image");
+    apercu.style.display = "none";
+    addPost.textContent = "Publier";
+
+    inputImage.addEventListener("change", () => {
+        const fichier = inputImage.files[0];
+        if (fichier) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                apercu.src = e.target.result;
+                apercu.style.display = "block";
+            };
+            reader.readAsDataURL(fichier);
+        } else {
+            apercu.style.display = "none";
+        }
+    });
 
     form.appendChild(labelTitle);
     form.appendChild(inputTitle);
-    form.appendChild(document.createElement("br"));
     form.appendChild(labelMsg);
     form.appendChild(inputMsg);
-    form.appendChild(document.createElement("br"));
+    form.appendChild(labelImage);
+    form.appendChild(inputImage);
+    form.appendChild(apercu);
     form.appendChild(addPost);
 
     form.addEventListener("submit", function (event) {
@@ -225,10 +258,22 @@ add.addEventListener("click", () => {
         const likedBy = [];
         const now = new Date();
         const date = now.toLocaleDateString("fr-FR") + " — " + now.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" });
-        posts.push({ nom: nom, prenom: prenom, titre: title, msg: msg, likes: nbLike, likedBy: likedBy, coms: nbComs, commentaires: commmentaires, id: postId, userId: index, date: date });
-        sauvegarderPost();
-        showStats();
-        location.reload();
+
+        const sauvegarderAvecImage = (imageBase64) => {
+            posts.push({ nom: nom, prenom: prenom, titre: title, msg: msg, image: imageBase64, likes: nbLike, likedBy: likedBy, coms: nbComs, commentaires: commmentaires, id: postId, userId: index, date: date });
+            sauvegarderPost();
+            showStats();
+            location.reload();
+        };
+
+        const fichier = inputImage.files[0];
+        if (fichier) {
+            const reader = new FileReader();
+            reader.onload = (e) => sauvegarderAvecImage(e.target.result);
+            reader.readAsDataURL(fichier);
+        } else {
+            sauvegarderAvecImage(null);
+        }
     });
 });
 
