@@ -5,7 +5,6 @@ const form = document.getElementById("form-post");
 const add = document.getElementById("add");
 const recherche = document.getElementById("recherche");
 const disconnect = document.getElementById("disconnect");
-let likes = 0;
 const follows = users[index].nbFollows;
 const postss = users[index].nbPosts;
 const postsData = JSON.parse(localStorage.getItem("post"));
@@ -52,52 +51,35 @@ function chargerPosts() {
         const message = document.createElement("p");
         message.textContent = posts[i]["msg"];
         const boutonLike = document.createElement("button");
-        if (users[index].likedPosts.length > 0) {
-            for (let p in users[index].likedPosts) {
-                if (p == i) {
-                    boutonLike.textContent = "❤️";
-                }
-                else {
-                    boutonLike.textContent = "🤍";
-                }
-            }
+        if (!posts[i].likedBy) {
+            posts[i].likedBy = [];
+        }
+        if (posts[i].likedBy.includes(Number(index))) {
+            boutonLike.textContent = "❤️";
         }
         else {
             boutonLike.textContent = "🤍";
         }
         boutonLike.addEventListener("click", () => {
-            if (users[index].likedPosts.length > 0) {
-                if (users[index].likedPosts.includes(i)) {
-                    users[index].likedPosts = users[index].likedPosts.filter(post => post !== i);
-                    posts[i].likes -= 1;
-                    sauvegarderPost();
-                    showStats();
-                    sauvegarderUsers();
-                    likes.textContent = " " + posts[i].likes;
-                    boutonLike.textContent = "🤍";
-                }
-                else {
-                    users[index].likedPosts.push(i);
-                    posts[i].likes += 1;
-                    sauvegarderPost();
-                    showStats();
-                    sauvegarderUsers();
-                    likes.textContent = " " + posts[i].likes;
-                    boutonLike.textContent = "❤️";
-                }
-            }
-            else {
-                users[index].likedPosts.push(i);
-                posts[i].likes += 1;
+            if (posts[i].likedBy.includes(Number(index))) {
+                posts[i].likedBy = posts[i].likedBy.filter(id => id !== Number(index));
+                posts[i].likes = posts[i].likedBy.length;
                 sauvegarderPost();
                 showStats();
-                sauvegarderUsers();
-                likes.textContent = " " + posts[i].likes;
+                likesSpan.textContent = " " + posts[i].likes;
+                boutonLike.textContent = "🤍";
+            }
+            else {
+                posts[i].likedBy.push(Number(index));
+                posts[i].likes = posts[i].likedBy.length;
+                sauvegarderPost();
+                showStats();
+                likesSpan.textContent = " " + posts[i].likes;
                 boutonLike.textContent = "❤️";
             }
         });
-        const likes = document.createElement("span");
-        likes.textContent = " " + posts[i]["likes"];
+        const likesSpan = document.createElement("span");
+        likesSpan.textContent = " " + posts[i]["likes"];
         const boutonComAdd = document.createElement("button");
         boutonComAdd.textContent = "Ajouter un commentaire  (" + posts[i]["coms"] + ")";
         boutonComAdd.classList.add("com");
@@ -160,16 +142,17 @@ function chargerPosts() {
         })
         const boutonClose = document.createElement("button");
         boutonClose.textContent = "X";
-        if (postsData[i]["userId"] == index) {
-            actions.appendChild(boutonClose);
-        }
+        boutonClose.classList.add("btn-close");
         boutonClose.addEventListener("click", () => {
             removePost(posts[i].id);
         })
+        if (postsData[i]["userId"] == index) {
+            postHeader.appendChild(boutonClose);
+        }
         const coms = document.createElement("span");
         actions.classList.add("actions");
         actions.appendChild(boutonLike);
-        actions.appendChild(likes);
+        actions.appendChild(likesSpan);
         actions.appendChild(boutonComAdd);
         actions.appendChild(boutonComView);
         actions.appendChild(coms);
@@ -235,7 +218,8 @@ add.addEventListener("click", () => {
             postId = 0;
         }
         const commmentaires = [];
-        posts.push({ nom: nom, prenom: prenom, titre: title, msg: msg, likes: nbLike, coms: nbComs, commentaires: commmentaires, id: postId, userId: index });
+        const likedBy = [];
+        posts.push({ nom: nom, prenom: prenom, titre: title, msg: msg, likes: nbLike, likedBy: likedBy, coms: nbComs, commentaires: commmentaires, id: postId, userId: index });
         sauvegarderPost();
         showStats();
         location.reload();
@@ -344,4 +328,20 @@ function showStats() {
 disconnect.addEventListener("click", () => {
     localStorage.removeItem("userConnect");
     window.location.href = "../signin/signin.html";
+});
+
+const recherchePost = document.getElementById("recherchePost");
+
+recherchePost.addEventListener("input", () => {
+    const texte = recherchePost.value.toLowerCase();
+    const divPost = document.getElementById("posts");
+    const allPosts = divPost.querySelectorAll(".post");
+    for (let i = 0; i < allPosts.length; ++i) {
+        const contenu = allPosts[i].textContent.toLowerCase();
+        if (contenu.includes(texte)) {
+            allPosts[i].style.display = "";
+        } else {
+            allPosts[i].style.display = "none";
+        }
+    }
 });

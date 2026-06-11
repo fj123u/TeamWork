@@ -246,6 +246,23 @@ body {
     margin-bottom: 10px;
 }
 
+.btn-close {
+    margin-left: auto;
+    background: none;
+    border: 1px solid #b00020;
+    color: #b00020;
+    border-radius: 5px;
+    padding: 4px 10px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-close:hover {
+    background-color: #b00020;
+    color: white;
+}
+
 .post-avatar {
     width: 36px;
     height: 36px;
